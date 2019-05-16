@@ -1,0 +1,13 @@
+Token name: SK TEST
+Token Symbol: SKTE
+Rate: Pegged to $1 worth of eth, this rate will be set at ICO launch.
+Supply: minimum will be 20 mil. 
+
+we want it to be close to $1 per token
+
+sorry, softcap would be $500,000 worth of ETH at time of ico. 
+hardcap $20,000,000
+
+yes we will have a start and end time.
+
+possibly more, kyc team who will whitelist will be multiple people

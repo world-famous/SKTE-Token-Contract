@@ -1,0 +1,53 @@
+In the SkteTokenIcoContract.sol file, there are some lines which can be updated once ICO will be started.
+
+First, line 37 for start time.
+    startTime = _startTime; // 1530450000 2018-07-01 9:AM EDT
+    _startTime should be updated and this should be the start time. as you can see, the type of _startTime is Timestamp, and UTC Time zone.
+
+Second, line 38 for end time.
+    endTime = _endTime; // 1535806800 2018-09-01 9:AM EDT
+    This is same with the case of _startTime.
+
+    or uint256 public   rate = 200; this line 16.
+    In this line, rate was set as 200 initially, so you can set using this line, too, of course , before it will be deployed.
+
+Third, line 161 for setting token rate.
+    function setRate(uint256 _rate) public onlyOwner returns (bool)
+    Owner can set rate using this function.
+    This function check the time when it is between _startTime and _endTime.(require (now >= startTime && now <= endTime);)
+
+
+Next , I will give you a explanation for each functions.
+
+First, line 30, in constructor, when it will be deployed, you have to set Skte Token address, and start time, endTime, or if you will use truffle to deploy it, 
+you can set in the 2_deploy_migrations.js.
+
+Second, line 53 for the fallback function,when investors will send eth to this manage contract, then this fallback function will be run.
+and internally, buyTokens functions will be run.
+
+Third, line 130 for function setAdminlist,
+Owner will add admins in the list using this function.
+setAdminlist(address _addr, bool _state), _addr is admin's address, and _state is the state if you want to set as admin, then true, if no, then false.
+
+Forth, line 136 for function setWhitelist,
+Admins will add verified investor to whitelist using this function.
+This is used for adding one by one investor.
+
+Fifth, line 143, setManyWhitelist(), this function will be used to add investors to the whitelist as array type.
+This will reduce the gas fee when adding verified investors by using array at once.
+
+Sixth, line 150, hasEnded(), this function is used to check ICO has ended by checking ICO duration ended, or hardcap reached.
+
+Seventh, line 157, hasStarted(), this is used to check if ICO was started or not.
+
+Eighth, line 161, setRate(), refer to above comment.
+
+Ninth, line 168, manageICOResult(), this is important function.
+Owner will refund or transfter token to investors using this function.
+This function check if softcap was reached, so it will transfer token to the investors when the result is true, and it will send eth to owner's wallet address, and burn remainig token.
+And if the softcap was not reached, then it will refund eth to investors.
+
+Tenth, line 183, checkInvestorHoldingToken(), can check investor's token amount which was transferred after ICO by using this function.
+
+Eleventh, line 188, kill(), owner will desctruct() SkteTokenIcoContract using this function.
+The whole eth in this contract will go to owner's address.
